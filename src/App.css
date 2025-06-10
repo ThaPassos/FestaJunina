@@ -1,0 +1,111 @@
+.container {
+  background-color: #161e43;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  justify-items: center;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #161e43;
+   overflow: hidden;
+}
+
+.bandeira {
+  width: 102%;
+  height: auto;
+  max-height: 400px;
+  margin-top: -80px;
+}
+
+.logo {
+  max-height: 270px;
+  margin-top: -150px;
+}
+
+.botao {
+  max-height: 290px;
+  margin-top: 40px;
+}
+
+/* Estilize o elemento picture também */
+picture:has(.violao) {
+  position: absolute;
+  top: 430px;
+  left: 42%;
+  transform: translateX(-620px);
+}
+
+.violao {
+  width: 270px; 
+  display: block;
+}
+
+.danca {
+  width: 300px;
+  display: block;
+  position: absolute;
+  top: 420px;
+  left: 93%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+
+@media (max-width: 767px) {
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .bandeira {
+        width: 100%;
+        max-height: 200px;
+        margin-top: 0;
+    }
+
+    .logo {
+        position: absolute;
+        top: 330px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        z-index: 3;
+    }
+
+    .botao {
+        position: absolute;
+        top: 250px;
+        left: 80px;
+        width: 180px;
+        z-index: 2;
+    }
+
+    /* Posicione o picture do violão */
+    picture:has(.violao) {
+        position: absolute;
+        top: 485px;
+        left: 3px;
+        transform: none;
+    }
+
+    .violao {
+        width: 140px;
+        z-index: 1;
+    }  
+
+    .danca{
+      display: none;
+    }
+}

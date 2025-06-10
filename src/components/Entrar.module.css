@@ -1,0 +1,256 @@
+.container {
+  background-color: #161e43;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-rows: 100px 280px 200px 20px;
+  justify-items: center;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #161e43;
+   overflow:hidden
+}
+
+.bandeira {
+    position: static;
+  width: 102%;
+  height: 320px;
+  max-height: 400rem;
+  margin-top: -5rem;
+}
+
+.logo{
+  width: 18rem;
+  margin-top: -2.5rem;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin-top: -21rem;
+  z-index: 2;
+  position: relative;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.inputField {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  outline: none;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.inputField:focus {
+  background-color: rgba(255, 255, 255, 0.9); 
+  box-shadow: none; 
+  outline: none; 
+}
+
+.inputField::placeholder {
+  color: #000;
+  opacity: 0.7;
+}
+
+.elementosFooter {
+    position: static;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  width: 100%;
+}
+
+.violao {
+    position: static;
+  width: 13rem;
+  height: auto;
+
+}
+
+.danca {
+    position: static;
+  width: 230px;
+  margin-right: -3rem;
+  margin-bottom: -3rem;
+}
+
+.setaVoltar {
+  position: absolute;
+  top: 4vh;
+  left: 2vw;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.paragrafoC{
+  position: static;
+  color: white;
+ font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 1.3rem;
+  margin-top: -12.5rem;
+  display: flex;
+  margin-left: 2rem;
+}
+
+.entrar {
+  position: static;
+  margin-top: 5rem;
+  margin-left: 6rem;
+  width: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+  z-index: 10;
+}
+
+.FormsFundo{
+  background-color: #263475;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  width: 30rem;
+  margin-top: -23.5rem;
+  height: 15rem;
+  z-index: 1;
+  position: static;
+  border-radius: 2rem;
+}
+
+
+@media (max-width: 767px) {
+     html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .bandeira {
+     position: static;
+        width: 100%;
+        max-height: 8rem;
+        margin-top: 1.5rem;
+    }
+
+.logo {
+     position: static;
+        max-height: 13rem;
+        margin-top: 2.5rem;
+        width: 12rem;
+  }
+
+
+    .formulario {
+         display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 11rem;
+      height: 2rem;
+      margin-top: -18rem;
+      z-index: 2;
+      position: relative;
+    }
+
+    .inputField {
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .label {
+        font-size: 0.9rem;
+    }
+
+    .paragrafoC{
+      position: static;
+  color: white;
+ font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  margin-top: -10.6rem;
+  display: flex;
+  margin-left: 2rem;
+    }
+
+.FormsFundo{
+  background-color: #263475;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  width: 15rem;
+  margin-top: -20rem;
+  margin-left: 1rem;
+  height: 12rem;
+  z-index: 1;
+  position: relative;
+  border-radius: 2rem;
+}
+
+    picture:has(.violao) {
+        position: absolute;
+        top: 485px;
+        left: 3px;
+        transform: none;
+    }
+
+    .violao {
+        display: none;
+    }  
+
+      .danca {
+        display: none;
+      }
+
+    .setaVoltar {
+    margin-top: 2rem;
+    margin-left: 17rem;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .entrar img {
+    position: static;
+    width: 8.5rem;
+    margin-bottom: -2rem;
+    margin-left: -4rem;
+  }
+
+  .entrar{
+    margin-top: 2rem;
+    margin-left: 5rem;
+  }
+} 

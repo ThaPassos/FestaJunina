@@ -1,0 +1,16 @@
+.seta-voltar {
+  position: absolute;
+  top: 4vh;
+  left: 2vw;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .seta-voltar {
+    margin-top: 2rem;
+    margin-left: 17rem;
+    width: 3rem;
+    height: 3rem;
+  }
+}
