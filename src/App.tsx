@@ -1,28 +1,35 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import TelaPlay from './components/TelaPlay'
-import InicialJogos from './components/InicialJogos'
-import './App.css'
-import Cadastro from './components/Cadastro'
-import Entrar from './components/Entrar'
-import ClownGame from './components/ClownGame'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import InicialJogos from "./components/InicialJogos";
+import TelaPlay from "./components/TelaPlay";
+import Cadastro from "./components/Cadastro";
+import Entrar from "./components/Entrar";
+import CanGame from "./components/CanGame";
+import ClownGame from "./components/ClownGame";
+import Voucher from "./components/Vouches";
+import Perfil from "./components/Perfil";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={
-            <TelaPlay />
-        } />
-        <Route path="/InicialJogos" element={<InicialJogos/>} />
+const queryClient = new QueryClient();
 
-        <Route path="/cadastrar" element={<Cadastro/>} />
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+        <Route path="/InicialJogos" element={<InicialJogos />} />
+        <Route path="/" element={<TelaPlay />} />
+        <Route path="/cadastrar" element={<Cadastro />} />
+        <Route path="/entrar" element={<Entrar />} />
+        <Route path="/JogoBocaDoPalhaço" element={<ClownGame />} />
+        <Route path="/JogoLatas" element={<CanGame />} />
+        <Route path="/vouchers" element={<Voucher />} />
+        <Route path="/perfil" element={<Perfil />} />
+        </Routes>
+      </BrowserRouter>
+  </QueryClientProvider>
+);
 
-        <Route path="/entrar" element={<Entrar/>} />
+export default App;
 
-        <Route path="/JogoBocaDoPalhaço" element={<ClownGame/>} />
-      </Routes>
-    </BrowserRouter>
-  )
-}
 
-export default App
+
+

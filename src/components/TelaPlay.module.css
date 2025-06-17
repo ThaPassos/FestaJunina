@@ -1,63 +1,67 @@
 .container {
-  background-color: #161e43;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-rows: 100px 280px 200px 20px;
-  justify-items: center;
   min-height: 100vh;
   width: 100%;
-  position: relative;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
   background-color: #161e43;
-   overflow: auto;
+  display: grid;
+  grid-template-rows: 180px 70px 138px auto;
+  grid-template-areas:
+    "bandeira"
+    "logo"
+    "botao"
+    "footer";
+  justify-items: center;
+  align-items: center;
+  gap: 0;
+}
+
+.bandeiraContainer {
+  margin-top: 0;
+  padding-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 0; 
 }
 
 .bandeira {
-    position: static;
-  width: 102%;
-  height: 320px;
-  max-height: 400rem;
-  margin-top: -5rem;
+  width: 100vw;
+  max-width: 100vw;
+  height: auto;
+  margin-top: 1rem;
 }
 
-.titulo{
-  width: 100%;
+.logoContainer {
+  grid-area: logo;
   display: flex;
-  justify-content: center; 
-  align-items: center;     
-  margin-top: -3rem;     
+  justify-content: center;
+  align-items:flex-start;
+  width: 100%;
 }
 
-.logo{
-  width: 42rem;
+.logo {
+  width: 580px;
+  max-width: 90vw;
   height: auto;
 }
 
-.botaoo {
-  width: 100%;
+.botaoContainer {
+  grid-area: botao;
   display: flex;
-  justify-content: center; 
-  align-items: center;     
-  margin-top: -4rem;       
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 250px;
 }
 
 .botao {
-  width: 14rem;
+  width: 260px;
+  max-width: 80vw;
   height: auto;
-  z-index: 10;
-  position: relative;
+  margin-top: 3rem;
 }
 
-.elementosFooter {
+.footer {
     position: static;
   position: absolute;
   bottom: 0;
@@ -69,55 +73,45 @@ body {
 
 .violao {
     position: static;
-  width: 13rem;
+  width: 14rem;
   height: auto;
 
 }
 
 .danca {
     position: static;
-  width: 230px;
-  margin-right: -3rem;
-  margin-bottom: -3rem;
+  width: 16rem;
+  height: 14rem;
+  margin-right: 1rem;
+  margin-top: 3rem;
 }
- 
+
 
 @media (max-width: 767px) {
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-      .bandeira {
-      position: static;
-        width: 100%;
-        max-height: 8rem;
-        margin-top: 1.5rem;
-    }
+  .logo {
+    width: 260px;
+    max-width: 90vw;
+  }
+  .botao {
+    margin-bottom: 6rem;
+    margin-left: 2rem;
+    width: 180px;
+    max-width: 60vw;
+  }
+  .violao {
+    width: 600px;
+    max-width: 47vw;
+    margin-top: 5rem;
+  }
+  .danca {
+    display: none; 
+  }
+  .bandeira {
+    margin-bottom: 3.7rem;
+    max-height: 130px;
+  }
+  .footer {
+    padding: 0 1vw 1vw 1vw;
+  }
 
-    .logo {
-       position: static;
-       max-height: 13rem;
-        margin-top: 1rem;
-        width: 20rem;
-        z-index: 3;
-    }
-
-    .botao {
-        margin-top: -10rem;
-        margin-left: 20px;
-        width: 180px;
-        z-index: 2;
-    }
-
-        .violao {
-        width: 7rem;
-        margin-bottom: 2rem;
-        z-index: 1;
-    }  
-
-    .danca{
-      display: none;
-    }
 }

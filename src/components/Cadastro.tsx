@@ -10,16 +10,84 @@ import { Link } from 'react-router-dom';
 import continuar from '../assets/imagens/continuar.png'
 import { useNavigate } from 'react-router-dom';
 
-const Entrar: React.FC = () => {
+const Cadastro: React.FC = () => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
+  const [fotoPerfil, setFotoPerfil] = useState<File | null>(null);
+  const [previewFoto, setPreviewFoto] = useState<string | null>(null);
   const navigate = useNavigate();
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Dados do formulário:', {nome, email, cpf });
-    navigate('/entrar'); 
+
+    try {
+      // Primeiro, cadastrar o usuário
+      const response = await fetch('http://localhost:8080/usuarios/cadastrar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nome,
+          email,
+          cpf: cpf.replace(/\D/g, '') // remove máscara antes de enviar
+        })
+      });
+
+      if (response.ok) {
+        // Se há foto selecionada, fazer upload
+        if (fotoPerfil) {
+          const formData = new FormData();
+          formData.append('cpf', cpf.replace(/\D/g, ''));
+          formData.append('file', fotoPerfil);
+
+          const uploadResponse = await fetch('http://localhost:8080/usuarios/upload-foto', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (!uploadResponse.ok) {
+            console.warn('Erro ao fazer upload da foto, mas cadastro foi realizado');
+          }
+        }
+
+        alert('Cadastro realizado com sucesso!');
+        navigate('/entrar');
+      } else {
+        const erro = await response.text();
+        alert('Erro ao cadastrar: ' + erro);
+      }
+    } catch (error) {
+      console.error('Erro ao cadastrar:', error);
+      alert('Erro inesperado no cadastro!');
+    }
+  };
+
+  const handleFotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Verificar se é uma imagem
+      if (!file.type.startsWith('image/')) {
+        alert('Por favor, selecione apenas arquivos de imagem!');
+        return;
+      }
+
+      // Verificar tamanho (máximo 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('A imagem deve ter no máximo 5MB!');
+        return;
+      }
+
+      setFotoPerfil(file);
+      
+      // Criar preview da imagem
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPreviewFoto(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const formatCPF = (value: string) => {
@@ -70,7 +138,7 @@ const Entrar: React.FC = () => {
           <div className={styles.inputGroup}>
             <label className={styles.label}>Email:</label>
             <input
-              type="text"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={styles.inputField}
@@ -90,6 +158,25 @@ const Entrar: React.FC = () => {
               maxLength={14}
               required
             />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>Foto de Perfil (opcional):</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFotoChange}
+              className={styles.inputField}
+            />
+            {previewFoto && (
+              <div className={styles.previewContainer}>
+                <img
+                  src={previewFoto}
+                  alt="Preview"
+                  className={styles.previewImage}
+                />
+              </div>
+            )}
           </div>
 
           <button type="submit" className={styles.continuar}>
@@ -134,4 +221,4 @@ const Entrar: React.FC = () => {
   );
 };
 
-export default Entrar;
+export default Cadastro;

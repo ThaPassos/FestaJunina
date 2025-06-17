@@ -11,8 +11,10 @@ import violao2 from '../assets/imagens/violão2.png';
 import danca from '../assets/imagens/dança.png';
 import logo2 from '../assets/imagens/Logo2.png';
 import { motion } from 'framer-motion';
-import moeda from '../assets/imagens/moeda.png';
 import { Link } from 'react-router-dom';
+import { useCoins } from '../hooks/useCoins';
+import { CoinDisplay } from './CoinDisplay';
+
 export const ClownGame = () => {
   const ballRef = useRef<HTMLImageElement>(null);
   const clownRef = useRef<HTMLDivElement>(null);
@@ -30,20 +32,20 @@ export const ClownGame = () => {
     height: typeof window !== 'undefined' ? window.innerHeight : 0
   });
 
-  // Inicializa e atualiza a posição da bola de forma responsiva
+  // Hook para gerenciar moedas
+  const { totalCoins, gameCoins, addCoins } = useCoins();
+
   useEffect(() => {
     const updateBallPosition = () => {
       if (gameAreaRef.current && ballRef.current) {
         const gameArea = gameAreaRef.current.getBoundingClientRect();
-        const initialX = gameArea.width * 0.6898;  // 70% da largura
-        const initialY = gameArea.height * 0.85; // 80% da altura
+        const initialX = gameArea.width * 0.6898;
+        const initialY = gameArea.height * 0.85;
       }
     };
 
-    // Atualiza imediatamente
     updateBallPosition();
 
-    // Configura o observer de redimensionamento
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
@@ -56,27 +58,23 @@ export const ClownGame = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Movimento aleatório do palhaço
   useEffect(() => {
     const moveInterval = setInterval(() => {
       setClownPosition(prev => {
-        // Limites da barraca ajustados
         const minX = 30; 
         const maxX = 55; 
         const minY = 30; 
         const maxY = 38;
         
-        // Movimento mais suave
         let newX = prev.x + (Math.random() * 4 - 2); 
         let newY = prev.y + (Math.random() * 2 - 1); 
         
-        // Garante que o palhaço não saia dos limites
         newX = Math.max(minX, Math.min(maxX, newX));
         newY = Math.max(minY, Math.min(maxY, newY));
         
         return { x: newX, y: newY };
       });
-    }, 50);
+    }, 200);
 
     return () => clearInterval(moveInterval);
   }, []);
@@ -110,11 +108,9 @@ export const ClownGame = () => {
     const gameArea = gameAreaRef.current;
     const rect = gameArea.getBoundingClientRect();
     
-    // Calcula a posição relativa dentro da gameArea
     const x = e.clientX - rect.left - ballRef.current.width / 2;
     const y = e.clientY - rect.top - ballRef.current.height / 2;
 
-    // Limita a bola à área do jogo
     const boundedX = Math.max(0, Math.min(rect.width - ballRef.current.width, x));
     const boundedY = Math.max(0, Math.min(rect.height - ballRef.current.height, y));
 
@@ -124,7 +120,6 @@ export const ClownGame = () => {
     checkCollision(boundedX + ballRef.current.width / 2, boundedY + ballRef.current.height / 2);
   };
 
-  // Função para touch events
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging || !ballRef.current || !gameAreaRef.current) return;
     
@@ -149,7 +144,7 @@ export const ClownGame = () => {
     setTimeout(() => setShowPoints(null), 1000);
   };
 
-  const checkCollision = (ballX: number, ballY: number) => {
+  const checkCollision = async (ballX: number, ballY: number) => {
     const clown = clownRef.current;
     const ball = ballRef.current;
 
@@ -162,17 +157,16 @@ export const ClownGame = () => {
 
       const distance = Math.hypot(ballX - mouthCenterX, ballY - mouthCenterY);
 
-      // Sistema de pontuação
       if (distance < 40) {
         const bonusChance = Math.random();
-        let points = 50;
+        let points = 10;
         
         if (bonusChance > 0.9) {
-          points = 500;
+          points = 60;
           setShowBonus(true);
           setTimeout(() => setShowBonus(false), 1000);
         } else if (bonusChance > 0.8) {
-          points = 200;
+          points = 40;
         }
         
         const comboMultiplier = 1 + combo * 0.2;
@@ -181,6 +175,14 @@ export const ClownGame = () => {
         setScore(prev => prev + points);
         setFall(true);
         setCombo(prev => prev + 1);
+        
+        // Adiciona moedas ao sistema global
+        try {
+          await addCoins(points);
+          console.log(`✅ Adicionadas ${points} moedas ao total global!`);
+        } catch (error) {
+          console.error('Erro ao adicionar moedas:', error);
+        }
         
         showPointsGained(points, mouthCenterX, mouthCenterY);
         
@@ -231,8 +233,11 @@ export const ClownGame = () => {
       </div>
 
       <div className={styles.moedaContainer}>
-        <img src={moeda} alt="Moeda" className={styles.moedaIcon} />
-        <span className={styles.moedaTexto}>{score.toString().padStart(2, '0')}</span>
+        <CoinDisplay 
+          totalCoins={totalCoins}
+          gameCoins={gameCoins}
+          showGameCoins={true}
+        />
         {combo > 1 && <span className={styles.comboText}>Combo x{combo}</span>}
         {showBonus && <span className={styles.bonusText}>BÔNUS!</span>}
       </div>
@@ -288,23 +293,23 @@ export const ClownGame = () => {
         />
       </div>
 
-          <Link to="/InicialJogos" className={styles.setaVoltar}>
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15 6L9 12L15 18"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Link>
+      <Link to="/InicialJogos" className={styles.setaVoltar}>
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15 6L9 12L15 18"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </Link>
     </div>
   );
 };

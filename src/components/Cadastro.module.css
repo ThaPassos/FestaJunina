@@ -22,11 +22,8 @@ body {
 }
 
 .bandeira {
-    position: static;
-  width: 102%;
-  height: 320px;
-  max-height: 400rem;
-  margin-top: -5rem;
+    width: 102%;
+  margin-bottom: 7rem;
 }
 
 .logo{
@@ -52,8 +49,8 @@ body {
   gap: 1rem;
   width: 100%;
   width: 30rem;
-  margin-top: -23.5rem;
-  height: 20rem;
+  margin-top: -24rem;
+  height: 25rem;
   z-index: 1;
   position: static;
   border-radius: 2rem;
@@ -94,6 +91,29 @@ body {
   opacity: 0.7;
 }
 
+.inputField[type="file"] {
+  padding: 5px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.previewContainer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.previewImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: -8rem;
+  margin-right: -27rem;
+  object-fit: cover;
+  border: 3px solid #ff6b35;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 .elementosFooter {
     position: static;
   position: absolute;
@@ -106,16 +126,17 @@ body {
 
 .violao {
     position: static;
-  width: 13rem;
+  width: 14rem;
   height: auto;
 
 }
 
 .danca {
     position: static;
-  width: 230px;
-  margin-right: -3rem;
-  margin-bottom: -3rem;
+  width: 16rem;
+  height: 14rem;
+  margin-right: 1rem;
+  margin-top: 3rem;
 }
 
 .setaVoltar {
@@ -140,7 +161,7 @@ body {
 
 .continuar {
   position: static;
-  margin-top: 1rem;
+  margin-top: 0rem;
   margin-left: 6rem;
   width: 2rem;
   background: none;
@@ -150,27 +171,89 @@ body {
   z-index: 10;
 }
 
+.entrarBotao{
+  width: 120px;
+  margin-top: 13rem;
+  margin-left: 3rem;
+  white-space: nowrap;
+}
+
+.messageBox {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #1e90ff, #00bfff);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  text-align: center;
+  max-width: 80%;
+  animation: fadeIn 0.5s ease-out;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.messageBox p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translate(-50%, -20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translate(-50%, 0); 
+  }
+}
+
+.messageBox::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #1e90ff transparent transparent;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+
+.IrJogo{
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  z-index: 3;
+}
+
 @media (max-width: 767px) {
      html, body {
     height: 100%;
     margin: 0;
     padding: 0;
   }
-  
+  .messageBox {
+    top: 15%;
+    max-width: 90%;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
   .bandeira {
      position: static;
-        width: 100%;
         max-height: 8rem;
-        margin-top: 1.5rem;
+        margin-top: 0rem;
     }
 
 .logo {
      position: static;
         max-height: 13rem;
-        margin-top: 2.5rem;
-        width: 12rem;
+        margin-top: -0.5rem;
+        width: 10rem;
   }
-
 
     .formulario {
          display: flex;
@@ -178,7 +261,7 @@ body {
       gap: 1rem;
       width: 11rem;
       height: 2rem;
-      margin-top: -20.5rem;
+      margin-top: -26rem;
       z-index: 2;
       position: relative;
     }
@@ -199,7 +282,7 @@ body {
   text-align: center;
   white-space: nowrap;
   font-size: 0.9rem;
-  margin-top: -10.6rem;
+  margin-top: -11.6rem;
   display: flex;
   margin-left: 1rem;
     }
@@ -211,9 +294,9 @@ body {
   gap: 1rem;
   width: 100%;
   width: 15rem;
-  margin-top: -22.5rem;
+  margin-top: -28rem;
   margin-left: 1rem;
-  height: 17.5rem;
+  height: 22rem;
   z-index: 1;
   position: relative;
   border-radius: 2rem;
@@ -235,7 +318,7 @@ body {
       }
 
     .setaVoltar {
-    margin-top: 2rem;
+    margin-top: 0rem;
     margin-left: 17rem;
     width: 3rem;
     height: 3rem;
@@ -244,7 +327,19 @@ body {
   .continuar img {
     position: static;
     width: 7rem;
-    margin-top: -1rem;
-    margin-left: -4.5rem;
+    margin-top: 0.5rem;
+    margin-left: -5rem;
   }
-} 
+
+  .entrarBotao{
+  font-size: 0.8rem;
+  margin-top: 11rem;
+  margin-left: -0.2rem;
+}
+
+  .IrJogo{
+    font-size: 0.8rem;
+  margin-top: 0rem;
+  margin-left: 0.5rem;
+  }
+}

@@ -15,11 +15,43 @@ const Entrar: React.FC = () => {
   const [cpf, setCpf] = useState('');
   const navigate = useNavigate();
   
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Dados do formulário:', {email, cpf });
-    navigate('/InicialJogos'); 
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const loginData = {
+    email: email.trim(),
+    cpf: cpf.replace(/\D/g, '')
   };
+
+  try {
+    const response = await fetch('http://localhost:8080/usuarios/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(loginData)
+    });
+
+    if (response.ok) {
+      const usuario = await response.json();
+      console.log('Usuário logado:', usuario);
+      
+      // Salvar dados do usuário no localStorage
+      localStorage.setItem('cpfUsuario', loginData.cpf);
+      localStorage.setItem('emailUsuario', loginData.email);
+      localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+      
+      navigate('/InicialJogos');
+    } else {
+      const erro = await response.text();
+      console.error('Erro da API:', erro);
+      alert('Erro ao fazer login: ' + erro);
+    }
+  } catch (error) {
+    console.error('Erro de rede:', error);
+    alert('Erro inesperado no login!');
+  }
+};
 
   const formatCPF = (value: string) => {
     // Remove tudo que não é dígito
