@@ -49,7 +49,7 @@ const useWindowSize = () => {
 };
 
 // ... mantenho todas as funções de configuração responsiva existentes
-const getResponsiveCansConfig = (windowWidth) => {
+const getResponsiveCansConfig = (windowWidth: number) => {
   if (windowWidth <= 480) {
     return {
       scale: 0.6,
@@ -120,8 +120,9 @@ const getResponsiveCansConfig = (windowWidth) => {
     };
   }
 };
+type CameraConfig = { position: [number, number, number]; fov: number };
 
-const getResponsiveCameraConfig = (windowWidth) => {
+const getResponsiveCameraConfig = (windowWidth: number): CameraConfig => {
   if (windowWidth <= 480) {
     return { position: [0, 1, 8], fov: 75 };
   } else if (windowWidth <= 767) {
@@ -133,7 +134,7 @@ const getResponsiveCameraConfig = (windowWidth) => {
   }
 };
 
-const getResponsiveCanvasStyle = (windowWidth) => {
+const getResponsiveCanvasStyle = (windowWidth: number): React.CSSProperties => {
   if (windowWidth <= 480) {
     return {
       position: 'absolute',
@@ -194,7 +195,7 @@ export const CanGame = () => {
   const [showPoints, setShowPoints] = useState<{points: number, x: number, y: number} | null>(null);
   const [cans, setCans] = useState<Can[]>([]);
   const [ballPosition, setBallPosition] = useState({ x: 0, y: 0 });
-  const [ballVelocity, setBallVelocity] = useState({ x: 0, y: 0 });
+  const [, setBallVelocity] = useState({ x: 0, y: 0 });
   const [isBallThrown, setIsBallThrown] = useState(false);
   const [initialBallPosition, setInitialBallPosition] = useState({ x: 0, y: 0 });
   const [isResetting, setIsResetting] = useState(false);
@@ -207,9 +208,7 @@ export const CanGame = () => {
   const windowSize = useWindowSize();
 
   // Hook para gerenciar moedas
-  const { totalCoins, gameCoins, addCoins, resetGameCoins } = useCoins();
-
-  // ... resto do código igual, só atualizando as partes relacionadas a moedas
+    const { totalCoins, gameCoins, addCoins } = useCoins();
 
   const getInitialCans = (): Can[] => {
     const config = getResponsiveCansConfig(windowSize.width);

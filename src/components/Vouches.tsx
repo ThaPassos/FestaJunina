@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCoins } from '../hooks/useCoins';
 import { CoinDisplay } from './CoinDisplay';
@@ -244,7 +244,7 @@ export const Voucher = () => {
                     imageUrl={voucher.imageUrl}
                     preco={voucher.preco}
                     onClick={() => comprarVoucher(voucher)}
-                    disabled={isDisabled}
+                    disabled={isDisabled || loading}
                     isPurchasing={isPurchasing}
                     showPrice={false} 
                     isInCooldown={isInCooldown}

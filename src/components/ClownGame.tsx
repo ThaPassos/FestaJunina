@@ -27,36 +27,11 @@ export const ClownGame = () => {
   const [combo, setCombo] = useState(0);
   const [showBonus, setShowBonus] = useState(false);
   const [showPoints, setShowPoints] = useState<{points: number, x: number, y: number} | null>(null);
-  const [windowSize, setWindowSize] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 0,
-    height: typeof window !== 'undefined' ? window.innerHeight : 0
-  });
 
   // Hook para gerenciar moedas
   const { totalCoins, gameCoins, addCoins } = useCoins();
 
-  useEffect(() => {
-    const updateBallPosition = () => {
-      if (gameAreaRef.current && ballRef.current) {
-        const gameArea = gameAreaRef.current.getBoundingClientRect();
-        const initialX = gameArea.width * 0.6898;
-        const initialY = gameArea.height * 0.85;
-      }
-    };
-
-    updateBallPosition();
-
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
-      updateBallPosition();
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const [, setScore] = useState(0);
 
   useEffect(() => {
     const moveInterval = setInterval(() => {
@@ -79,10 +54,10 @@ export const ClownGame = () => {
     return () => clearInterval(moveInterval);
   }, []);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    e.preventDefault();
-  };
+  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+  setIsDragging(true);
+  e.preventDefault();
+};
 
   const handleMouseUp = () => {
     if (isDragging) {

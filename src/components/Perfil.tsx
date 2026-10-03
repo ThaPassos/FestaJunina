@@ -13,8 +13,9 @@ import violao from '../assets/imagens/violão.png';
 import violao2 from '../assets/imagens/violão2.png';
 import danca from '../assets/imagens/dança.png';
 
+
 interface Usuario {
-  id: number;
+  id?: number;
   nome: string;
   email: string;
   cpf: string;
