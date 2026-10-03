@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCoins } from '../hooks/useCoins';
-import { apiService } from '../services/api';
+import { apiService, type Usuario } from '../services/api';
 import { CoinDisplay } from './CoinDisplay';
 import styles from '../components/Perfil.module.css';
 
@@ -13,15 +13,6 @@ import violao from '../assets/imagens/violão.png';
 import violao2 from '../assets/imagens/violão2.png';
 import danca from '../assets/imagens/dança.png';
 
-
-interface Usuario {
-  id?: number;
-  nome: string;
-  email: string;
-  cpf: string;
-  moedas: number;
-  fotoPerfil?: string;
-}
 
 const Perfil: React.FC = () => {
   const [usuario, setUsuario] = useState<Usuario | null>(null);

@@ -20,18 +20,17 @@ export const ClownGame = () => {
   const clownRef = useRef<HTMLDivElement>(null);
   const gameAreaRef = useRef<HTMLDivElement>(null);
   const barracaRef = useRef<HTMLDivElement>(null);
-  const [score, setScore] = useState(0);
   const [fall, setFall] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [clownPosition, setClownPosition] = useState({ x: 47, y: 35 });
   const [combo, setCombo] = useState(0);
+  const [, setScore] = useState(0);
+  // const [score, setScore] = useState(0);
   const [showBonus, setShowBonus] = useState(false);
   const [showPoints, setShowPoints] = useState<{points: number, x: number, y: number} | null>(null);
 
   // Hook para gerenciar moedas
   const { totalCoins, gameCoins, addCoins } = useCoins();
-
-  const [, setScore] = useState(0);
 
   useEffect(() => {
     const moveInterval = setInterval(() => {
